@@ -302,6 +302,47 @@
     grid.insertAdjacentElement('afterend', motes);
   }
 
+  /* ---------- download: served from GitHub Releases ----------
+     While pending (no release yet), a click pulses the note instead of navigating. On load we ask the
+     GitHub API for the latest release; if it carries an .apk asset we point the button straight at it,
+     drop the pending state, and fill in the real version + size. Each new release updates the page
+     automatically — no HTML edit per build. */
+  var RELEASE_REPO = 'Khoality-dev/the-system-official';
+  function hydrateDownload() {
+    var apk = document.getElementById('apk-btn');
+    if (!apk) return;
+    var note = document.getElementById('apk-note');
+    apk.addEventListener('click', function (e) {
+      if (!apk.getAttribute('data-apk-pending')) return; // released → let the link download
+      e.preventDefault();
+      if (note) {
+        note.style.transition = 'none'; note.style.opacity = '0.3';
+        setTimeout(function () { note.style.transition = 'opacity .4s'; note.style.opacity = '1'; }, 30);
+      }
+    });
+    if (!window.fetch) return;
+    fetch('https://api.github.com/repos/' + RELEASE_REPO + '/releases/latest', {
+      headers: { 'Accept': 'application/vnd.github+json' },
+    })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (rel) {
+        if (!rel || !rel.assets) return;
+        var asset = rel.assets.filter(function (a) { return /\.apk$/i.test(a.name); })[0];
+        if (!asset) return;
+        apk.href = asset.browser_download_url;
+        apk.removeAttribute('data-apk-pending');
+        var v = document.getElementById('apk-version');
+        if (v && rel.tag_name) v.textContent = rel.tag_name.replace(/^v/i, '');
+        var s = document.getElementById('apk-size');
+        if (s && asset.size) s.textContent = '~' + Math.round(asset.size / 1048576) + ' MB';
+        if (note) {
+          note.textContent = 'Latest release: ' + (rel.name || rel.tag_name) + ' · verified by Android on install.';
+          note.style.color = 'var(--dim)';
+        }
+      })
+      .catch(function () { /* offline / rate-limited → stay in the pending state */ });
+  }
+
   /* ---------- init ---------- */
   function init() {
     apply(values);
@@ -310,17 +351,7 @@
     initTyped();
     var y = document.getElementById('year');
     if (y) y.textContent = new Date().getFullYear();
-    var apk = document.getElementById('apk-btn');
-    if (apk && apk.getAttribute('data-apk-pending')) {
-      apk.addEventListener('click', function (e) {
-        e.preventDefault();
-        var note = document.getElementById('apk-note');
-        if (note) {
-          note.style.transition = 'none'; note.style.opacity = '0.3';
-          setTimeout(function () { note.style.transition = 'opacity .4s'; note.style.opacity = '1'; }, 30);
-        }
-      });
-    }
+    hydrateDownload();
     try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch (e) {}
   }
 

@@ -1,13 +1,13 @@
-# THE SYSTEM — download/landing website + authenticated APK upload endpoint.
-# Serves the static site AND receives the signed APK from the release CI (own-site
-# distribution). Set DEPLOY_TOKEN in .env first (see .env.example), then run:
+# THE SYSTEM — download/landing website (static).
+# The public site is hosted on GitHub Pages; this compose file is only for serving
+# the same static files locally or on your own box. The APK is NOT served here —
+# it's distributed via GitHub Releases (github.com/Khoality-dev/the-system-official).
 #
 #   docker compose up -d        # then open http://localhost:8080
 #   docker compose down
 #
 # The web root is this folder, mounted read-only; nginx.conf hides the repo/meta
-# files (*.md, *.yml, *.conf, dotfiles). The APK is NOT in the web root — it lives
-# in the apk_data volume, written by the uploader and served at /dl/the-system.apk.
+# files (*.md, *.yml, *.conf, dotfiles).
 services:
   website:
     image: nginx:1.27-alpine
@@ -17,35 +17,9 @@ services:
     volumes:
       - ./:/usr/share/nginx/html:ro
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      # the uploaded APK lives here (outside the read-only web root); nginx aliases
-      # /dl/the-system.apk onto it
-      - apk_data:/srv/apk:ro
-    depends_on:
-      - apk-uploader
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "-q", "-O", "-", "http://localhost/"]
       interval: 30s
       timeout: 3s
       retries: 3
-
-  # Authenticated APK upload endpoint. The release CI PUTs the signed APK to
-  # /deploy/the-system.apk (nginx reverse-proxies it here); this writes it
-  # atomically into the shared apk_data volume that nginx serves. DEPLOY_TOKEN
-  # is the shared secret — set it in .env (see .env.example). Stdlib only.
-  apk-uploader:
-    image: python:3.12-slim
-    container_name: thesystem-apk-uploader
-    command: ["python", "/app/upload_server.py"]
-    environment:
-      DEPLOY_TOKEN: ${DEPLOY_TOKEN:?set DEPLOY_TOKEN in .env}
-      APK_DEST: /data/the-system.apk
-    volumes:
-      - ./deploy/upload_server.py:/app/upload_server.py:ro
-      - apk_data:/data
-    expose:
-      - "9000"
-    restart: unless-stopped
-
-volumes:
-  apk_data:

@@ -40,8 +40,10 @@
       <h1 class="reveal" data-delay="60" style="margin-top:18px;max-width:12ch;">Download<br />the&nbsp;System.</h1>
       <p class="lead reveal" data-delay="120" style="margin-top:22px;">Install The System directly on a compatible Android device. Review the requirements and installation steps below before downloading.</p>
 
+      <!-- Download served from GitHub Releases: site.js reads the latest release and points this
+           button at its .apk asset, filling in version/size (see README). Pending until first release. -->
       <div class="hero-cta reveal" data-delay="160">
-        <a class="btn lg" id="apk-btn" href="/dl/the-system.apk" download data-apk-pending="1">
+        <a class="btn lg" id="apk-btn" href="https://github.com/Khoality-dev/the-system-official/releases/latest" download data-apk-pending="1">
           <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M7.5 8.2 6 5.9M16.5 8.2 18 5.9" />
             <path d="M6 10.5a6 6 0 0 1 12 0V16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-5.5Z" />
@@ -54,8 +56,8 @@
 
       <div class="sys-win reveal" data-delay="200" style="margin-top:26px;padding:16px 20px;display:inline-flex;gap:26px;flex-wrap:wrap;">
         <div class="tex"></div>
-        <span class="mono" style="font-size:13px;color:var(--dim);">VERSION <b style="color:var(--bright)">0.1.0</b></span>
-        <span class="mono" style="font-size:13px;color:var(--dim);">SIZE <b style="color:var(--bright)">~24&nbsp;MB</b></span>
+        <span class="mono" style="font-size:13px;color:var(--dim);">VERSION <b id="apk-version" style="color:var(--bright)">0.1.0</b></span>
+        <span class="mono" style="font-size:13px;color:var(--dim);">SIZE <b id="apk-size" style="color:var(--bright)">~24&nbsp;MB</b></span>
         <span class="mono" style="font-size:13px;color:var(--dim);">ANDROID <b style="color:var(--bright)">8.0+</b></span>
       </div>
       <p id="apk-note" class="mini-note reveal" data-delay="240" style="margin-top:14px;text-transform:none;letter-spacing:0;color:var(--gold);">The download is temporarily unavailable. Check this page again later.</p>
