@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Download — THE SYSTEM</title>
+<meta name="description" content="Download the THE SYSTEM Android APK. Install instructions, system requirements, permissions and FAQ." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site/site.css" />
+  <link rel="icon" type="image/png" href="site/img/store-icon.png" />
+  <meta name="theme-color" content="#02060d" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="site/img/banner.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="site/img/banner.jpg" />
+</head>
+<body data-screen-label="Download">
+<div class="bg-field"></div>
+<div class="bg-scan"></div>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><span class="mark"><img src="site/img/logo.png" alt="The System logo" /></span>THE&nbsp;SYSTEM</a>
+    <nav class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="the-system.html">How it works</a>
+      <a href="about.html">About</a>
+    </nav>
+    <a class="btn ghost nav-cta" href="#get">Download</a>
+  </div>
+</header>
+
+<!-- ===== DOWNLOAD HERO ===== -->
+<section class="section-pad" id="get" style="padding-bottom:0;">
+  <div class="wrap hero-layout" style="align-items:center;">
+    <div>
+      <span class="eyebrow reveal">Establish connection</span>
+      <h1 class="reveal" data-delay="60" style="margin-top:18px;max-width:12ch;">Download<br />the&nbsp;System.</h1>
+      <p class="lead reveal" data-delay="120" style="margin-top:22px;">Android APK, direct download. The Body pillar is free and works fully offline. Enhanced (the Mind pillar) unlocks in-app.</p>
+
+      <!-- Direct download, self-hosted: the repo is private, so GitHub Releases can't serve the APK to
+           logged-out users. The release CI PUTs the signed APK to /deploy and nginx serves it at
+           /dl/the-system.apk. It goes live after the first release deploys — then remove
+           data-apk-pending="1" to enable the button. -->
+      <div class="hero-cta reveal" data-delay="160">
+        <a class="btn lg" id="apk-btn" href="/dl/the-system.apk" download data-apk-pending="1">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7.5 8.2 6 5.9M16.5 8.2 18 5.9" />
+            <path d="M6 10.5a6 6 0 0 1 12 0V16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-5.5Z" />
+            <path d="M9.6 10h.01M14.4 10h.01" />
+            <path d="M9 17v2.2M15 17v2.2" />
+          </svg>
+          Download APK
+        </a>
+        <span class="btn ghost lg" aria-disabled="true" style="cursor:not-allowed;opacity:0.6;">
+          <svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.15-2.8.85-3.5.85-.72 0-1.86-.83-3.06-.81-1.57.02-3.02.91-3.83 2.32-1.64 2.84-.42 7.04 1.17 9.35.78 1.13 1.7 2.4 2.91 2.35 1.17-.05 1.61-.76 3.02-.76 1.41 0 1.81.76 3.05.73 1.26-.02 2.06-1.15 2.83-2.29.89-1.31 1.26-2.58 1.28-2.64-.03-.01-2.45-.94-2.47-3.73Z" />
+            <path d="M14.2 5.9c.64-.78 1.07-1.86.95-2.94-.92.04-2.04.61-2.7 1.39-.59.69-1.11 1.79-.97 2.85 1.03.08 2.08-.52 2.72-1.3Z" />
+          </svg>
+          iOS — coming soon
+        </span>
+      </div>
+
+      <div class="sys-win reveal" data-delay="200" style="margin-top:26px;padding:16px 20px;display:inline-flex;gap:26px;flex-wrap:wrap;">
+        <div class="tex"></div>
+        <span class="mono" style="font-size:13px;color:var(--dim);">VERSION <b style="color:var(--bright)">0.1.0</b></span>
+        <span class="mono" style="font-size:13px;color:var(--dim);">SIZE <b style="color:var(--bright)">~24&nbsp;MB</b></span>
+        <span class="mono" style="font-size:13px;color:var(--dim);">ANDROID <b style="color:var(--bright)">8.0+</b></span>
+      </div>
+      <p id="apk-note" class="mini-note reveal" data-delay="240" style="margin-top:14px;text-transform:none;letter-spacing:0;color:var(--gold);">Build not yet hosted — the direct download goes live once the signed APK is deployed to the site.</p>
+    </div>
+
+    <div>
+      <div class="device float"><img src="site/img/app-status.png" alt="The System status screen" width="270" height="600" decoding="async" fetchpriority="high" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INSTALL STEPS ===== -->
+<section class="section-pad">
+  <div class="wrap">
+    <div style="margin-bottom:42px;">
+      <span class="eyebrow reveal">Sideload install</span>
+      <h2 class="reveal" data-delay="60" style="margin-top:16px;max-width:20ch;">Four steps to first quest.</h2>
+      <p class="lead reveal" data-delay="120" style="margin-top:18px;">Until the Google Play listing is live, the System installs from the APK directly. It's quick.</p>
+    </div>
+    <div class="loop">
+      <div class="sys-win loop-step reveal"><div class="tex"></div>
+        <span class="n">01</span><h3>Download</h3>
+        <p>Tap <b style="color:var(--bright)">Download APK</b> above on your Android device. The file lands in your Downloads.</p>
+      </div>
+      <div class="sys-win loop-step reveal" data-delay="80"><div class="tex"></div>
+        <span class="n">02</span><h3>Allow the source</h3>
+        <p>Open the file. If prompted, enable <b style="color:var(--bright)">"Allow from this source"</b> for your browser or file manager.</p>
+      </div>
+      <div class="sys-win loop-step reveal" data-delay="160"><div class="tex"></div>
+        <span class="n">03</span><h3>Install</h3>
+        <p>Confirm the install. Android verifies the package; it takes a few seconds.</p>
+      </div>
+      <div class="sys-win loop-step reveal" data-delay="240"><div class="tex"></div>
+        <span class="n">04</span><h3>Awaken</h3>
+        <p>Open the app, accept the System, and your first quest is issued at <b class="mono" style="color:var(--bright)">Lv.0</b>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section-pad" style="padding-top:0;">
+  <div class="wrap">
+    <div class="center" style="margin-bottom:42px;">
+      <span class="eyebrow reveal">FAQ</span>
+      <h2 class="reveal" data-delay="60" style="margin-top:16px;">Before you install.</h2>
+    </div>
+    <div class="faq reveal" data-delay="100">
+      <details><summary>Why an APK and not the Play Store?</summary><p>The Play listing is on the way. For now the build ships as a direct APK so early Players can start the climb. Sideloading from a source you trust is standard on Android.</p></details>
+      <details><summary>Is it safe to install?</summary><p>The APK is the same build headed for Google Play. Android verifies every package on install, and the app requests permissions only in context. Always download from this official page.</p></details>
+      <details><summary>What's free vs paid?</summary><p>The entire Body pillar — STR / VIT / AGI, all body quests, stats, leveling, the shop and penalties — is free and offline. Enhanced is a monthly subscription (US$5/mo, regionally priced) that unlocks the Mind pillar: INT / PER, the Mind Gate, and AI-free grading.</p></details>
+      <details><summary>Which languages are supported?</summary><p>English, Vietnamese, Japanese and Korean from day one — including brain-quest content authored per language, not machine-translated.</p></details>
+      <details><summary>Do I need an account?</summary><p>Not for the free Body tier — it works fully offline with no sign-in. <b style="color:var(--bright)">Enhanced</b> (the Mind pillar) requires an account by email or Google sign-in, because its grading and sync run online. You can delete your Enhanced account and its data in-app or via a public web link.</p></details>
+      <details><summary>What are the requirements?</summary><p>Android 8.0 or newer, roughly 24&nbsp;MB, with motion sensors for rep tracking. GPS is optional (Field Gates) and Health Connect is optional (sleep / steps).</p></details>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap footer-in">
+    <div>
+      <a class="brand" href="index.html" style="margin-bottom:14px;"><span class="mark"><img src="site/img/logo.png" alt="The System logo" /></span>THE&nbsp;SYSTEM</a>
+      <p class="mini-note" style="text-transform:none;letter-spacing:0;color:var(--dim);max-width:34ch;">A real-life self-improvement protocol. Train your body free; forge your mind with Enhanced.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <a href="index.html">Overview</a>
+      <a href="the-system.html">How it works</a>
+      <a href="download.html">Download APK</a>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <a href="privacy-policy.html">Privacy policy</a>
+      <a href="#">Data safety</a>
+      <a href="#">Delete my data</a>
+      <a href="#">Health disclaimer</a>
+    </div>
+  </div>
+  <div class="wrap legal">
+    <span>&copy; <span id="year">2026</span> THE SYSTEM. Android first. Not medical advice.</span>
+    <span class="brk">You have become a Player.</span>
+  </div>
+</footer>
+
+<script src="site/site.js"></script>
+</body>
+</html>
