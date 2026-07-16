@@ -302,45 +302,29 @@
     grid.insertAdjacentElement('afterend', motes);
   }
 
-  /* ---------- download: served from GitHub Releases ----------
-     While pending (no release yet), a click pulses the note instead of navigating. On load we ask the
-     GitHub API for the latest release; if it carries an .apk asset we point the button straight at it,
-     drop the pending state, and fill in the real version + size. Each new release updates the page
-     automatically — no HTML edit per build. */
+  /* ---------- download: static link + progressive labels ----------
+     The button links straight at GitHub's stable latest-asset URL
+     (…/releases/latest/download/the-system.apk), so the download works with ZERO JavaScript and can
+     never go stale — each new release re-points that URL automatically. On load we additionally ask
+     the GitHub API for the latest release only to fill in the real version + size labels; if that
+     call is offline or rate-limited the static fallbacks stay. We never touch the href or gate the
+     click, so the download is always live. */
   var RELEASE_REPO = 'Khoality-dev/the-system-official';
   function hydrateDownload() {
-    var apk = document.getElementById('apk-btn');
-    if (!apk) return;
-    var note = document.getElementById('apk-note');
-    apk.addEventListener('click', function (e) {
-      if (!apk.getAttribute('data-apk-pending')) return; // released → let the link download
-      e.preventDefault();
-      if (note) {
-        note.style.transition = 'none'; note.style.opacity = '0.3';
-        setTimeout(function () { note.style.transition = 'opacity .4s'; note.style.opacity = '1'; }, 30);
-      }
-    });
     if (!window.fetch) return;
     fetch('https://api.github.com/repos/' + RELEASE_REPO + '/releases/latest', {
       headers: { 'Accept': 'application/vnd.github+json' },
     })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (rel) {
-        if (!rel || !rel.assets) return;
-        var asset = rel.assets.filter(function (a) { return /\.apk$/i.test(a.name); })[0];
-        if (!asset) return;
-        apk.href = asset.browser_download_url;
-        apk.removeAttribute('data-apk-pending');
+        if (!rel) return;
         var v = document.getElementById('apk-version');
         if (v && rel.tag_name) v.textContent = rel.tag_name.replace(/^v/i, '');
+        var asset = (rel.assets || []).filter(function (a) { return /\.apk$/i.test(a.name); })[0];
         var s = document.getElementById('apk-size');
-        if (s && asset.size) s.textContent = '~' + Math.round(asset.size / 1048576) + ' MB';
-        if (note) {
-          note.textContent = 'Latest release: ' + (rel.name || rel.tag_name) + ' · verified by Android on install.';
-          note.style.color = 'var(--dim)';
-        }
+        if (s && asset && asset.size) s.textContent = '~' + Math.round(asset.size / 1048576) + ' MB';
       })
-      .catch(function () { /* offline / rate-limited → stay in the pending state */ });
+      .catch(function () { /* offline / rate-limited → keep the static labels */ });
   }
 
   /* ---------- init ---------- */
